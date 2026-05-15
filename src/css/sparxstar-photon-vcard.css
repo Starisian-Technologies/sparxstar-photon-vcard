@@ -1,7 +1,12 @@
 /* ==========================================
-   SPARXSTAR Photon VCard
+   SPARXSTAR Photon VCard — Stylesheet
+   @file          sparxstar-photon-vcard.css
    @package       sparxstar-photon-vcard
-   @description   Premium Identity Card UI
+   @copyright     2025 Starisian Technologies. All rights reserved.
+   @license       Starisian Technologies Proprietary
+   @author        Starisian Technologies (Max Barrett) <support@starisian.com>
+   @description   Business-card overlay UI: dark gradient card, motion permission
+                  button, QR fullscreen mode, and all responsive/a11y states.
    @version       0.5.0
    ========================================== */
 

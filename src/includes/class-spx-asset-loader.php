@@ -253,6 +253,16 @@ final class AssetLoader
 		}
 
 		// Permission check — only allowed roles receive a card.
+		/**
+		 * Filter the user roles permitted to receive a business card.
+		 *
+		 * Return an array of role slugs. Users whose role set does not intersect
+		 * with this list will not have a card enqueued, and no button will render
+		 * for them in shortcode output.
+		 *
+		 * @param string[] $allowed_roles Default: ['administrator', 'vip_business_user', 'editor'].
+		 * @param int      $user_id       The user ID being evaluated.
+		 */
 		$allowed_roles = apply_filters(
 			'sparxstar_photon_vcard_allowed_roles',
 			['administrator', 'vip_business_user', 'editor'],
@@ -337,6 +347,17 @@ final class AssetLoader
 		}
 
 		// Enterprise sensor override filter.
+		/**
+		 * Filter to disable all motion and orientation triggers for the card overlay.
+		 *
+		 * Set to true in environments where sensor access is prohibited by policy
+		 * (e.g. government, education, or privacy-restricted deployments). Keyboard
+		 * and touch fallback triggers remain functional when sensors are disabled.
+		 *
+		 * @param bool $disable  Whether to disable sensors. Default false.
+		 * @param int  $user_id  The card owner's user ID.
+		 * @param int  $post_id  The associated post ID (0 in shortcode-only context).
+		 */
 		$disable_sensors = apply_filters( 'sparxstar_photon_vcard_disable_sensors', false, $user_id, $post_id );
 		// Backwards-compat alias.
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- intentional enterprise override hook; prefix would break existing integrations.

@@ -1,0 +1,46 @@
+; EditorConfig — https://editorconfig.org
+; Defines consistent coding style for all editors and IDEs in this repository.
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+; PHP follows WordPress Coding Standards (tabs, 4-column width)
+[*.php]
+indent_style = tab
+indent_size = 4
+
+; JavaScript follows ESLint config (2 spaces)
+[*.js]
+indent_style = space
+indent_size = 2
+
+; CSS follows Stylelint config (2 spaces)
+[*.css]
+indent_style = space
+indent_size = 2
+
+; JSON / YAML / TOML — 2 spaces
+[*.{json,yml,yaml,toml}]
+indent_style = space
+indent_size = 2
+
+; XML (phpcs.xml, composer.xml) — 4 spaces
+[*.xml]
+indent_style = space
+indent_size = 4
+
+; Markdown — trailing whitespace is intentional (line breaks)
+[*.md]
+trim_trailing_whitespace = false
+indent_style = space
+indent_size = 2
+
+; Shell scripts
+[*.{sh,bash}]
+indent_style = tab
+indent_size = 4

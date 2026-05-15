@@ -1,31 +1,37 @@
-/** 
+/**
  * SPARXSTAR Photon VCard — front-end runtime.
  *
- * Bootstrapped by WordPress via wp_enqueue_script.  Card data is injected
- * via wp_add_inline_script as window.SPX_PHOTON_VCARD_USERS / window.SPX_PHOTON_VCARD_DEFAULT.
+ * @file        sparxstar-photon-vcard.js
+ * @package     sparxstar-photon-vcard
+ * @copyright   2025 Starisian Technologies. All rights reserved.
+ * @license     Starisian Technologies Proprietary
+ * @author      Starisian Technologies (Max Barrett) <support@starisian.com>
+ *
+ * Bootstrapped by WordPress via wp_enqueue_script. Card data is injected
+ * server-side via wp_add_inline_script as:
+ *   window.SPX_PHOTON_VCARD_USERS   — map of uid → sanitized card payload
+ *   window.SPX_PHOTON_VCARD_DEFAULT — uid of the first registered card owner
+ *
+ * This script runs as an IIFE with no external dependencies (except the optional
+ * QR library loaded as a separate script handle). It must never import from CDNs
+ * or make network requests of its own.
  *
  * Features:
  *  – Motion triggers: single face-down flip (deviceorientation) OR shake (devicemotion)
  *  – Keyboard trigger: Shift+V
  *  – Long-press touch trigger
  *  – [spx_photon_vcard] shortcode button support (data-spx-vcard-trigger)
- *  – Business-card-styled overlay with Gravatar photo, full contact details
- *  – QR code (vCard data encoded)
- *  – Fullscreen QR tap mode: tap QR to fill viewport (black on white) for easy across-desk scanning
- *  – WhatsApp share button: wa.me direct link when a WhatsApp channel is configured
+ *  – Business-card-styled overlay with logo/photo, full contact details
+ *  – QR code (vCard data encoded via qrcode.min.js)
+ *  – Fullscreen QR tap mode: tap QR to fill viewport (black on white)
+ *  – WhatsApp share button: wa.me deep-link when a WhatsApp channel is configured
  *  – Save Contact (.vcf download)
  *  – Web Share API URL share
  *  – Send to Device: Web Share API with .vcf file (fallback when no WhatsApp number)
  *  – Wake lock while card is visible
  *  – WCAG 2.1 focus trap + keyboard navigation
- *
- * Bootstrapped by WordPress via wp_enqueue_script.
- *
- * Card data is injected via:
- *   window.SPX_PHOTON_VCARD_USERS
- *   window.SPX_PHOTON_VCARD_DEFAULT
- *
- * @package Starisian\Sparxstar\Photon
+ *  – Respects prefers-reduced-motion
+ *  – Fails silently: all errors are caught; page operation is never blocked
  */
 (function (window, document) {
   "use strict";

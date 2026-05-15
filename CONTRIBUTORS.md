@@ -35,4 +35,4 @@ For contribution inquiries, please contact Starisian Technologies.
 
 ---
 
-Thank you to everyone who contributes to making SPARXSTAR Photo VCard better!
+Thank you to everyone who contributes to making SPARXSTAR Photon VCard better!

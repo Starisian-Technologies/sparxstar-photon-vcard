@@ -1,0 +1,122 @@
+name: Bug Report
+description: Report a bug or unexpected behaviour in SPARXSTAR Photon VCard.
+title: "[Bug]: "
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you for taking the time to report a bug.
+        Please fill in as much detail as possible to help us reproduce and fix the issue quickly.
+
+        **Do not include credentials, production URLs, or personally identifiable information.**
+
+  - type: textarea
+    id: description
+    attributes:
+      label: Describe the bug
+      description: A clear and concise description of what the bug is.
+      placeholder: When I ... the plugin does ... but I expected ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      description: Step-by-step instructions to reproduce the issue.
+      placeholder: |
+        1. Install the plugin on WordPress X.Y
+        2. Navigate to ...
+        3. Click / trigger ...
+        4. See error
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behaviour
+      description: What did you expect to happen?
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behaviour
+      description: What actually happened? Include error messages or console output if available.
+    validations:
+      required: true
+
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin version
+      placeholder: "0.5.0"
+    validations:
+      required: true
+
+  - type: input
+    id: wp-version
+    attributes:
+      label: WordPress version
+      placeholder: "6.8"
+    validations:
+      required: true
+
+  - type: input
+    id: php-version
+    attributes:
+      label: PHP version
+      placeholder: "8.2"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: acf
+    attributes:
+      label: ACF / SCF installed?
+      options:
+        - "Yes — Advanced Custom Fields (ACF)"
+        - "Yes — Secure Custom Fields (SCF)"
+        - "No"
+        - "Not sure"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: woocommerce
+    attributes:
+      label: WooCommerce installed?
+      options:
+        - "Yes"
+        - "No"
+        - "Not sure"
+    validations:
+      required: true
+
+  - type: input
+    id: browser
+    attributes:
+      label: Browser and device (for front-end issues)
+      placeholder: "Chrome 124 on Android 13 / Safari on iOS 17 / etc."
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: Paste any relevant PHP error logs, browser console errors, or network responses here.
+      render: shell
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission checklist
+      options:
+        - label: I have searched existing issues and this is not a duplicate.
+          required: true
+        - label: I am not reporting a security vulnerability (see SECURITY.md for the correct process).
+          required: true
+        - label: I have not included any credentials, production URLs, or personally identifiable information.
+          required: true

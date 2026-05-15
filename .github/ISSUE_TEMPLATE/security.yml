@@ -1,0 +1,15 @@
+name: Security Vulnerability
+description: "STOP — do not use this template for security vulnerabilities. See SECURITY.md."
+title: "[Security]: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## ⚠️ Do not report security vulnerabilities here
+
+        Please follow the coordinated disclosure process described in [SECURITY.md](../SECURITY.md).
+
+        Send your report directly to **support@starisian.com**.
+
+        Public disclosure of unpatched vulnerabilities puts all users at risk.
