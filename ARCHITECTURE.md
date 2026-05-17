@@ -27,7 +27,7 @@ These properties must be preserved across all future changes:
 4. **Fail-silent execution** — All runtime errors (broken sensors, localStorage failure, missing fields) are caught and swallowed without user-visible impact.
 5. **Accessibility parity** — Every trigger has a keyboard-accessible equivalent. The modal implements a WCAG 2.1 focus trap.
 6. **Multisite-first** — All activation, deactivation, uninstall, and option logic is aware of WordPress Multisite from the start.
-7. **No PII persistence** — No contact data is stored beyond the in-memory JavaScript runtime of the current page view.
+7. **No plugin-managed durable PII storage** — The plugin does not intentionally write contact data to cookies, `localStorage`, `sessionStorage`, IndexedDB, or other application-managed persistent stores. However, when the Stealth PWA caches successful navigation responses for offline support, HTML documents that embed inline `window.SPX_PHOTON_VCARD_USERS[...]` payloads may also persist in browser/service-worker `CacheStorage` until that cache entry is evicted or invalidated.
 
 ---
 
