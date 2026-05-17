@@ -8,7 +8,7 @@ This is a **proprietary, commercially licensed** project owned and maintained by
 
 ## Reporting Bugs
 
-Open a [GitHub Issue](https://github.com/Starisian-Technologies/sparxstar-photon-vcard/issues/new/choose) using the **Bug Report** template and include:
+Open a [GitHub Issue](https://github.com/Starisian-Technologies/sparxstar-photon-vcard/issues/new/choose) using the **Bug Report** template (`bug_report.yml`) and include:
 
 - Steps to reproduce
 - Expected vs. actual behaviour
@@ -24,13 +24,15 @@ Do **not** include credentials, user data, or production URLs in public issues.
 
 **Do not open a public issue for security vulnerabilities.**
 
-Please follow the coordinated disclosure process described in [SECURITY.md](SECURITY.md).
+The repository issue-creation page does not provide a public security form. Instead, the `.github/ISSUE_TEMPLATE/config.yml` configuration disables blank issues and provides a **contact link** that routes directly to [SECURITY.md](SECURITY.md), where the coordinated disclosure process is described.
+
+Please follow that process for all security disclosures. Do not attempt to work around the issue template controls.
 
 ---
 
 ## Requesting Features
 
-Open a [GitHub Issue](https://github.com/Starisian-Technologies/sparxstar-photon-vcard/issues/new/choose) using the **Feature Request** template.
+Open a [GitHub Issue](https://github.com/Starisian-Technologies/sparxstar-photon-vcard/issues/new/choose) using the **Feature Request** template (`feature_request.yml`).
 
 Describe:
 
