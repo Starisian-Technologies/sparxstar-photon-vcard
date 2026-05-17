@@ -1,15 +1,4 @@
-name: Security Vulnerability
-description: "STOP — do not use this template for security vulnerabilities. See SECURITY.md."
-title: "[Security]: "
-labels: []
-body:
-  - type: markdown
-    attributes:
-      value: |
-        ## ⚠️ Do not report security vulnerabilities here
-
-        Please follow the coordinated disclosure process described in [SECURITY.md](../SECURITY.md).
-
-        Send your report directly to **support@starisian.com**.
-
-        Public disclosure of unpatched vulnerabilities puts all users at risk.
+# Public security issue templates are intentionally not provided.
+# To report a vulnerability, follow the private disclosure process in ../SECURITY.md.
+# Repository maintainers should expose that process via .github/ISSUE_TEMPLATE/config.yml
+# using a contact_link entry, and disable blank issues if appropriate.
