@@ -1,0 +1,77 @@
+name: Regression Report
+description: Report behavior that previously worked and now fails.
+title: "[Regression]: "
+labels: ["regression", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template only for confirmed regressions.
+        Include clear version boundaries and reproducible evidence.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: Regression summary
+      description: What worked before, and what is broken now?
+    validations:
+      required: true
+
+  - type: input
+    id: last-known-good
+    attributes:
+      label: Last known good version
+      placeholder: "v0.5.0"
+    validations:
+      required: true
+
+  - type: input
+    id: first-bad-version
+    attributes:
+      label: First known bad version
+      placeholder: "v0.5.1"
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. ...
+        2. ...
+        3. ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: Business/production impact
+      description: Describe user impact, severity, and affected environments.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission checklist
+      options:
+        - label: I confirmed this behavior worked in an earlier version.
+          required: true
+        - label: I have included enough detail to reproduce the issue.
+          required: true

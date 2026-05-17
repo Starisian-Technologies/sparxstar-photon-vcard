@@ -18,6 +18,8 @@ Open a [GitHub Issue](https://github.com/Starisian-Technologies/sparxstar-photon
 
 Do **not** include credentials, user data, or production URLs in public issues.
 
+For commercial support and non-security operational assistance, see [SUPPORT.md](SUPPORT.md).
+
 ---
 
 ## Reporting Security Vulnerabilities
@@ -51,6 +53,7 @@ Feature requests are reviewed against the project roadmap by the Starisian Techn
 ### Environment Setup
 
 See [DEVELOPMENT.md](DEVELOPMENT.md) for the complete local setup guide.
+See [CI-CD.md](CI-CD.md) for CI gates, release flow, and rollback expectations.
 
 ### Branch Naming
 

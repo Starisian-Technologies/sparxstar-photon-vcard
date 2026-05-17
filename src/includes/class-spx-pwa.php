@@ -361,12 +361,18 @@ final class PwaController {
 		$uid     = is_user_logged_in() ? get_current_user_id() : 0;
 		$version = SPARXSTAR_PHOTON_VCARD_VERSION;
 
-		$debug    = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG;
-		$css_file = $debug ? 'sparxstar-photon-vcard.css' : 'sparxstar-photon-vcard.min.css';
-		$js_file  = $debug ? 'sparxstar-photon-vcard.js' : 'sparxstar-photon-vcard.min.js';
+		$debug = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG;
 
-		$css_url = esc_url_raw( SPARXSTAR_PHOTON_VCARD_PLUGIN_URL . 'assets/css/' . $css_file );
-		$js_url  = esc_url_raw( SPARXSTAR_PHOTON_VCARD_PLUGIN_URL . 'assets/js/' . $js_file );
+		$css_url = esc_url_raw(
+			$debug
+				? SPARXSTAR_PHOTON_VCARD_PLUGIN_URL . 'src/css/sparxstar-photon-vcard.css'
+				: SPARXSTAR_PHOTON_VCARD_PLUGIN_URL . 'assets/css/sparxstar-photon-vcard.min.css'
+		);
+		$js_url  = esc_url_raw(
+			$debug
+				? SPARXSTAR_PHOTON_VCARD_PLUGIN_URL . 'src/js/sparxstar-photon-vcard.js'
+				: SPARXSTAR_PHOTON_VCARD_PLUGIN_URL . 'assets/js/sparxstar-photon-vcard.min.js'
+		);
 
 		$photo_url = '';
 		if ( $uid > 0 ) {

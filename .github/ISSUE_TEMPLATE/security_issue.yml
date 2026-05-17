@@ -1,0 +1,42 @@
+name: Security Triage Request
+description: Request security triage without posting exploit details publicly.
+title: "[Security]: "
+labels: ["security", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not include exploit payloads, credentials, secrets, or full vulnerability details in this public issue.
+        For full disclosure, follow SECURITY.md and email support@starisian.com.
+
+  - type: textarea
+    id: summary
+    attributes:
+      label: High-level security concern
+      description: Provide a minimal, non-sensitive summary only.
+    validations:
+      required: true
+
+  - type: input
+    id: affected-version
+    attributes:
+      label: Affected version (if known)
+      placeholder: "v0.5.0"
+
+  - type: textarea
+    id: affected-area
+    attributes:
+      label: Affected area
+      description: File, endpoint, workflow, or subsystem impacted.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Required confirmations
+      options:
+        - label: I have sent full private disclosure details to support@starisian.com.
+          required: true
+        - label: I have not included secrets, exploit code, or sensitive reproduction details in this issue.
+          required: true
