@@ -21,7 +21,7 @@ The plugin is **not** a general-purpose library. It is tightly scoped to a singl
 
 These properties must be preserved across all future changes:
 
-1. **No external network requests** — The runtime never loads scripts, fonts, or data from third-party origins.
+1. **No external runtime dependencies** — The plugin does not load scripts, fonts, analytics, or vendor application data from third-party origins. A documented exception exists for WordPress avatar rendering: if `get_avatar_url()` falls back to Gravatar, the browser may request the avatar image from Gravatar during normal operation.
 2. **No tracking or analytics** — No pixels, beacons, or vendor analytics code. Custom DOM events are emitted for host-site consumption only.
 3. **Zero page-blocking** — The plugin never blocks page rendering. If assets fail to load, the page continues to function normally.
 4. **Fail-silent execution** — All runtime errors (broken sensors, localStorage failure, missing fields) are caught and swallowed without user-visible impact.
