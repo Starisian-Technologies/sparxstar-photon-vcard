@@ -7,8 +7,8 @@ SPARXSTAR Photon VCard
 **Version:** 0.5.0
 **Status:** Production / Master Edition\
 **Scope:** WordPress plugin (PHP + client-side JavaScript)
-**Author** Starisian Technolog (Max Barrett)
-**License** Starisian Technologies Proprietary
+**Author:** Starisian Technologies (Max Barrett)
+**License:** Starisian Technologies Proprietary
 
 Copyright (c) 2025 Starisian Technologies. All rights reserved.
 
