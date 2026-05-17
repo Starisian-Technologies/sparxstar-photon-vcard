@@ -151,7 +151,7 @@ get_field() / WP_User fields
   → wp_add_inline_script()
 ```
 
-No raw user data touches the DOM. JavaScript consumes the pre-sanitized JSON and inserts all text via `textContent` (never `innerHTML`).
+No raw user data should be inserted into markup without sanitization and output escaping. JavaScript consumes the pre-sanitized JSON, escapes user-derived values before interpolating them into template strings, and then builds the overlay with `overlay.innerHTML`. Security reviews must treat the escaping step plus constrained template construction as the DOM-insertion boundary rather than assuming all text is written with `textContent`.
 
 ---
 
