@@ -105,7 +105,7 @@ final class Uninstaller {
 			$remove_from_constant = (bool) SPARXSTAR_PHOTON_VCARD_REMOVE_DATA_ON_UNINSTALL;
 		}
 
-		$remove_from_site_option = (bool) get_option( self::REMOVE_DATA_OPTION_KEY, false );
+		$remove_from_site_option    = (bool) get_option( self::REMOVE_DATA_OPTION_KEY, false );
 		$remove_from_network_option = false;
 
 		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
