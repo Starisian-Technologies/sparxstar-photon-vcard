@@ -94,10 +94,12 @@ final class Bootloader
 				foreach ( $site_ids as $site_id ) {
 					// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.switch_to_blog_switch_to_blog -- multisite activation iteration is the documented use case.
 					switch_to_blog( (int) $site_id );
-					self::activate_for_site();
+					try {
+						self::activate_for_site();
+					} finally {
+						restore_current_blog();
+					}
 				}
-
-				restore_current_blog();
 			}
 
 			return;
@@ -157,10 +159,12 @@ final class Bootloader
 				foreach ( $site_ids as $site_id ) {
 					// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.switch_to_blog_switch_to_blog -- multisite deactivation iteration is the documented use case.
 					switch_to_blog( (int) $site_id );
-					self::deactivate_for_site();
+					try {
+						self::deactivate_for_site();
+					} finally {
+						restore_current_blog();
+					}
 				}
-
-				restore_current_blog();
 			}
 
 			return;
