@@ -27,7 +27,7 @@
     "qrcode": "^1.5.3"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
+    "@eslint/js": "^9.39.1",
     "clean-css-cli": "^5.6.3",
     "eslint": "^9.25.1",
     "globals": "^17.5.0",

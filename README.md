@@ -413,7 +413,7 @@ Graceful degradation is guaranteed when features are unavailable.
 What This Runtime Does NOT Do
 -----------------------------
 
--   No external network requests
+-   No third-party script or API dependencies (except optional avatar retrieval via WordPress/Gravatar)
 
 -   No tracking pixels
 
@@ -471,3 +471,16 @@ If something fails:
 -   It does not leak data
 
 That behavior is intentional.
+
+* * * * *
+
+Operational Documentation
+-------------------------
+
+- [ARCHITECTURE.md](ARCHITECTURE.md)
+- [DEVELOPMENT.md](DEVELOPMENT.md)
+- [CI-CD.md](CI-CD.md)
+- [CONTRIBUTING.md](CONTRIBUTING.md)
+- [SECURITY.md](SECURITY.md)
+- [SUPPORT.md](SUPPORT.md)
+- [CHANGELOG.md](CHANGELOG.md)

@@ -1,0 +1,16 @@
+# Default ownership.
+* @Starisian-Technologies/maintainers
+
+# Security and governance controls.
+.github/workflows/* @Starisian-Technologies/maintainers
+.github/CODEOWNERS @Starisian-Technologies/maintainers
+SECURITY.md @Starisian-Technologies/maintainers
+composer.json @Starisian-Technologies/maintainers
+composer.lock @Starisian-Technologies/maintainers
+package.json @Starisian-Technologies/maintainers
+package-lock.json @Starisian-Technologies/maintainers
+
+# Core runtime and uninstall pathways.
+sparxstar-photon-vcard.php @Starisian-Technologies/maintainers
+uninstall.php @Starisian-Technologies/maintainers
+src/includes/* @Starisian-Technologies/maintainers
