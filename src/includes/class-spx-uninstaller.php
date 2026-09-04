@@ -26,6 +26,13 @@ if ( ! defined( 'WP_UNINSTALL_PLUGIN' ) ) {
 final class Uninstaller {
 
 	/**
+	 * Option key used to opt in to destructive uninstall cleanup.
+	 *
+	 * @var string
+	 */
+	private const REMOVE_DATA_OPTION_KEY = 'sparxstar_photon_vcard_remove_data_on_uninstall';
+
+	/**
 	 * Execute all cleanup routines in sequence.
 	 *
 	 * Handles both single-site and multisite uninstalls.
@@ -33,8 +40,7 @@ final class Uninstaller {
 	 * @return void
 	 */
 	public static function run(): void {
-		// User meta is stored in a global table and should be deleted once.
-		self::delete_user_meta();
+		$remove_user_data = false;
 
 		if ( function_exists( 'is_multisite' ) && is_multisite() && function_exists( 'get_sites' ) ) {
 			$sites = get_sites(
@@ -44,48 +50,101 @@ final class Uninstaller {
 			);
 
 			if ( ! empty( $sites ) ) {
-				if ( function_exists( 'get_current_blog_id' ) ) {
-					$original_blog_id = get_current_blog_id();
-				} else {
-					$original_blog_id = 0;
-				}
-
 				foreach ( $sites as $site ) {
-					if ( empty( $site->blog_id ) ) {
+					if ( ! is_object( $site ) || ! property_exists( $site, 'blog_id' ) ) {
+						continue;
+					}
+
+					$blog_id = (int) $site->blog_id;
+					if ( $blog_id <= 0 ) {
 						continue;
 					}
 
 					// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.switch_to_blog_switch_to_blog -- multisite uninstall iteration is the documented use case.
-					switch_to_blog( (int) $site->blog_id );
-					self::run_for_site();
-				}
-
-				if ( 0 !== $original_blog_id ) {
-					// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.switch_to_blog_switch_to_blog -- restoring original blog context after multisite uninstall iteration.
-					switch_to_blog( (int) $original_blog_id );
+					switch_to_blog( $blog_id );
+					try {
+						$remove_user_data_for_site = self::should_remove_user_data();
+						if ( $remove_user_data_for_site ) {
+							$remove_user_data = true;
+						}
+						self::run_for_site( $remove_user_data_for_site );
+					} finally {
+						restore_current_blog();
+					}
 				}
 			} else {
 				// Fallback: no sites found, perform cleanup for the current site context.
-				self::run_for_site();
+				$remove_user_data = self::should_remove_user_data();
+				self::run_for_site( $remove_user_data );
 			}
 		} else {
 			// Single-site installation.
-			self::run_for_site();
+			$remove_user_data = self::should_remove_user_data();
+			self::run_for_site( $remove_user_data );
+		}
+
+		// User meta is stored in a global table and should be deleted once.
+		if ( $remove_user_data ) {
+			self::delete_user_meta();
 		}
 
 		wp_cache_flush();
 	}
 
 	/**
+	 * Determine whether destructive cleanup should run during uninstall.
+	 *
+	 * To preserve user-owned data by default, destructive deletion only runs when
+	 * one of these opt-in controls evaluates true:
+	 *   - SPARXSTAR_PHOTON_VCARD_REMOVE_DATA_ON_UNINSTALL constant.
+	 *   - Site option 'sparxstar_photon_vcard_remove_data_on_uninstall'.
+	 *   - Network option with the same key (multisite only).
+	 *
+	 * The value can be overridden by the filter
+	 * `sparxstar_photon_vcard_remove_data_on_uninstall`.
+	 *
+	 * @return bool
+	 */
+	private static function should_remove_user_data(): bool {
+		$remove_from_constant = false;
+		if ( defined( 'SPARXSTAR_PHOTON_VCARD_REMOVE_DATA_ON_UNINSTALL' ) ) {
+			$remove_from_constant = (bool) SPARXSTAR_PHOTON_VCARD_REMOVE_DATA_ON_UNINSTALL;
+		}
+
+		$remove_from_site_option    = (bool) get_option( self::REMOVE_DATA_OPTION_KEY, false );
+		$remove_from_network_option = false;
+
+		if ( function_exists( 'is_multisite' ) && is_multisite() ) {
+			$remove_from_network_option = (bool) get_site_option( self::REMOVE_DATA_OPTION_KEY, false );
+		}
+
+		$remove_user_data = $remove_from_constant || $remove_from_site_option || $remove_from_network_option;
+
+		/**
+		 * Filter whether uninstall should remove user-owned plugin data.
+		 *
+		 * @param bool $remove_user_data Whether to perform destructive cleanup.
+		 */
+		$remove_user_data = (bool) apply_filters( 'sparxstar_photon_vcard_remove_data_on_uninstall', $remove_user_data );
+
+		return $remove_user_data;
+	}
+
+	/**
 	 * Execute per-site cleanup routines.
+	 *
+	 * @param bool $remove_user_data Whether destructive cleanup is enabled.
 	 *
 	 * @return void
 	 */
-	private static function run_for_site(): void {
+	private static function run_for_site( bool $remove_user_data ): void {
 		self::delete_options();
 		self::delete_transients();
 		self::delete_tables();
-		self::delete_uploads();
+
+		if ( $remove_user_data ) {
+			self::delete_uploads();
+		}
 	}
 
 	/**
@@ -95,6 +154,11 @@ final class Uninstaller {
 	 */
 	private static function delete_options(): void {
 		delete_option( 'sparxstar_photon_vcard_options' );
+		delete_option( self::REMOVE_DATA_OPTION_KEY );
+
+		if ( function_exists( 'is_multisite' ) && is_multisite() && function_exists( 'delete_site_option' ) ) {
+			delete_site_option( self::REMOVE_DATA_OPTION_KEY );
+		}
 	}
 
 	/**
