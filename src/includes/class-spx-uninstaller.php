@@ -40,12 +40,7 @@ final class Uninstaller {
 	 * @return void
 	 */
 	public static function run(): void {
-		$remove_user_data = self::should_remove_user_data();
-
-		// User meta is stored in a global table and should be deleted once.
-		if ( $remove_user_data ) {
-			self::delete_user_meta();
-		}
+		$remove_user_data = false;
 
 		if ( function_exists( 'is_multisite' ) && is_multisite() && function_exists( 'get_sites' ) ) {
 			$sites = get_sites(
@@ -68,18 +63,29 @@ final class Uninstaller {
 					// phpcs:ignore WordPressVIPMinimum.Functions.RestrictedFunctions.switch_to_blog_switch_to_blog -- multisite uninstall iteration is the documented use case.
 					switch_to_blog( $blog_id );
 					try {
-						self::run_for_site( $remove_user_data );
+						$remove_user_data_for_site = self::should_remove_user_data();
+						if ( $remove_user_data_for_site ) {
+							$remove_user_data = true;
+						}
+						self::run_for_site( $remove_user_data_for_site );
 					} finally {
 						restore_current_blog();
 					}
 				}
 			} else {
 				// Fallback: no sites found, perform cleanup for the current site context.
+				$remove_user_data = self::should_remove_user_data();
 				self::run_for_site( $remove_user_data );
 			}
 		} else {
 			// Single-site installation.
+			$remove_user_data = self::should_remove_user_data();
 			self::run_for_site( $remove_user_data );
+		}
+
+		// User meta is stored in a global table and should be deleted once.
+		if ( $remove_user_data ) {
+			self::delete_user_meta();
 		}
 
 		wp_cache_flush();
@@ -148,6 +154,11 @@ final class Uninstaller {
 	 */
 	private static function delete_options(): void {
 		delete_option( 'sparxstar_photon_vcard_options' );
+		delete_option( self::REMOVE_DATA_OPTION_KEY );
+
+		if ( function_exists( 'is_multisite' ) && is_multisite() && function_exists( 'delete_site_option' ) ) {
+			delete_site_option( self::REMOVE_DATA_OPTION_KEY );
+		}
 	}
 
 	/**
